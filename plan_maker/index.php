@@ -6,6 +6,10 @@ $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $statement = $pdo->prepare('SELECT * FROM exercises_list');
 $statement->execute();
 $exercises = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+$statement2 = $pdo->prepare('SELECT * FROM plan');
+$statement2->execute();
+$exercises2 = $statement2->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!doctype html>
@@ -45,8 +49,9 @@ $exercises = $statement->fetchAll(PDO::FETCH_ASSOC);
             <td><?php echo $exercise['link'] ?></td>
             <td>
                 <form method="post" action="delete.php" style="display: inline-block">
-                    <input  type="hidden" name="id" value="<?php echo $exercise['id'] ?>"/>
+                    <input type="hidden" name="id" value="<?php echo $exercise['id'] ?>"/>
                     <button type="button" class="btn btn-success">+</button>
+                    
                     <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                 </form>
             </td>
@@ -59,6 +64,7 @@ $exercises = $statement->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <h1>Plan</h1>
+<button type="submit" class="btn btn-sm btn-outline-danger">Delete all</button>
 <table class="table">
     <thead>
     <tr>
@@ -69,15 +75,15 @@ $exercises = $statement->fetchAll(PDO::FETCH_ASSOC);
     </tr>
     </thead>
     <tbody>
-    <?php foreach ($exercises as $i => $exercise) { ?>
+    <?php foreach ($exercises2 as $i => $exercise2) { ?>
         <tr>
             <th scope="row"><?php echo $i + 1 ?></th>
-            <td><?php echo $exercise['title'] ?></td>
-            <td><?php echo $exercise['sets'] ?></td>
-            <td><?php echo $exercise['link'] ?></td>
+            <td><?php echo $exercise2['title'] ?></td>
+            <td><?php echo $exercise2['sets'] ?></td>
+            <td><?php echo $exercise2['link'] ?></td>
             <td>
                 <form method="post" action="delete.php" style="display: inline-block">
-                    <input  type="hidden" name="id" value="<?php echo $exercise['id'] ?>"/>
+                    <input type="hidden" name="id" value="<?php echo $exercise2['id'] ?>"/>
                     <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
                 </form>
             </td>
